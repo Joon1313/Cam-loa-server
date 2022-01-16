@@ -7,9 +7,14 @@ class BackupService {
     return result;
   }
 
-  async create({ ...backupData }) {
+  async create(req) {
+    const { todo, grave, grave2, grave3 } = req.body;
     const backup = new Backup({
-      ...backupData,
+      todo,
+      grave,
+      grave2,
+      grave3,
+      ip: req.ip,
     });
     const result = await backup.save();
     return result;

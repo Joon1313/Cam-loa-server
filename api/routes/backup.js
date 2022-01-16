@@ -9,24 +9,16 @@ router.get("/:code", async (req, res) => {
     const backup = await BackupService.findOne(req.params.code);
     res.json(backup);
   } catch (err) {
-    res.status(400).json({ error: err });
+    res.status(400).json({ error: err.message });
   }
 });
 
 router.post("/", async (req, res) => {
-  const { todo, grave, grave2, grave3 } = req.body;
-  const ip = req.ip;
   try {
-    const backup = await BackupService.create({
-      todo,
-      grave,
-      grave2,
-      grave3,
-      ip,
-    });
+    const backup = await BackupService.create(req);
     res.json(backup);
   } catch (err) {
-    res.status(400).json({ error: err });
+    res.status(400).json({ error: err.message });
   }
 });
 
