@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const Comment = require("../../models/comment");
 const CommentService = require("../../services/comment");
 
 // router.use(function timeLog(req, res, next) {

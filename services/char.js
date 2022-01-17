@@ -6,20 +6,17 @@ class CharService {
     const res = await axios.get(
       `https://lostark.game.onstove.com/Profile/Character/${encodeURI(name)}`
     );
-    const level = getLevel(res.data);
-    const job = getJob(res.data);
+    const $ = cheerio.load(res.data);
     const result = {
-      level,
-      job,
+      level: getLevel($),
+      job: getJob($),
     };
     return result;
   }
 }
 
-function getLevel(data) {
-  let level;
-  const $ = cheerio.load(data);
-  level = $(
+function getLevel($) {
+  let level = $(
     "#lostark-wrapper > div > main > div > div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item > span:nth-child(2)"
   ).text();
   level = level.substring(3);
@@ -27,8 +24,7 @@ function getLevel(data) {
   return level;
 }
 
-function getJob(data) {
-  const $ = cheerio.load(data);
+function getJob($) {
   const job = $(
     "#lostark-wrapper > div > main > div > div.profile-character-info > img"
   ).attr("alt");

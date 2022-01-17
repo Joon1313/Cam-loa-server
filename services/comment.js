@@ -1,20 +1,18 @@
-const Comment = require("../models/comment");
+const CommentRepository = require("../repositories/comment");
 
 class CommentService {
   async findAll() {
-    const result = await Comment.find()
-      .select("-_id name content created")
-      .sort({ created: "desc" });
+    const result = await CommentRepository.findAll();
     return result;
   }
   async create(req) {
     const { name, content } = req.body;
-    const comment = new Comment({
+    const result = await CommentRepository.create({
       name,
       content,
       ip: req.ip,
     });
-    const result = await comment.save();
+
     return result;
   }
 }

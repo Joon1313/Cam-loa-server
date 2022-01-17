@@ -5,7 +5,7 @@ const greenlockInit = require("./greenlock");
 async function loaderInit(app) {
   try {
     await expressInit(app);
-    console.log("Express Init");
+    console.log("Express App Init");
     await mongooseInit();
     console.log("MongoDB Connected");
     await greenlockInit(app);

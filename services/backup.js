@@ -1,22 +1,20 @@
-const Backup = require("../models/backup");
+const BackupRepository = require("../repositories/backup");
 
 class BackupService {
   async findOne(id) {
-    console.log(id);
-    const result = await Backup.findOne({ _id: id });
+    const result = await BackupRepository.findOne(id);
     return result;
   }
 
   async create(req) {
     const { todo, grave, grave2, grave3 } = req.body;
-    const backup = new Backup({
+    const result = BackupRepository.create({
       todo,
       grave,
       grave2,
       grave3,
       ip: req.ip,
     });
-    const result = await backup.save();
     return result;
   }
 }
