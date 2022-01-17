@@ -34,4 +34,5 @@ function getJob(data) {
   ).attr("alt");
   return job;
 }
+
 module.exports = new CharService();
