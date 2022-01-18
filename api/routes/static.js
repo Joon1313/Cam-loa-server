@@ -53,5 +53,13 @@ router.get("/signup", (req, res) => {
       .sendFile(path.resolve(__dirname, "../../../build/index.html"));
   }
 });
+router.get("/profile", (req, res) => {
+  try {
+    const { user, isLogin } = AuthService.verify(req.cookies.auth);
+    res.sendFile(path.resolve(__dirname, "../../../build/index.html"));
+  } catch (err) {
+    res.redirect("/");
+  }
+});
 
 module.exports = router;
