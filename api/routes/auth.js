@@ -7,7 +7,7 @@ const { JWT_SECRET } = process.env;
 
 router.get("/", async (req, res) => {
   const token = req.cookies.auth;
-  if (!token) res.status(200).json({ isLogin: false });
+  if (!token) return res.status(200).json({ isLogin: false });
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     res.status(201).json({ user: decoded.id, isLogin: true });

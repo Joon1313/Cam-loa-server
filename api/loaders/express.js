@@ -13,6 +13,7 @@ const static = require("../routes/static");
 const login = require("../routes/login");
 const signup = require("../routes/signup");
 const auth = require("../routes/auth");
+const logout = require("../routes/logout");
 
 function expressInit(app) {
   app.use(cors(corsOptions));
@@ -28,6 +29,7 @@ function expressInit(app) {
   app.use("/api/login", login);
   app.use("/api/signup", signup);
   app.use("/api/auth", auth);
+  app.use("/api/logout", logout);
   app.use("/", static);
   app.disable("x-powered-by");
 }

@@ -5,7 +5,7 @@ const UserService = require("../../services/user");
 router.post("/", async (req, res) => {
   const { id, password } = req.body;
   if (!id || !password)
-    res
+    return res
       .status(400)
       .json({ error: "아이디 또는 비밀번호가 존재하지 않습니다." });
   try {
