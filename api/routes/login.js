@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
         httpOnly: true,
         secure: true,
       })
-      .json(token);
+      .end();
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
