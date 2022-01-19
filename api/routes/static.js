@@ -22,8 +22,15 @@ router.get("/set", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../../../build/index.html"));
 });
 router.get("/login", (req, res) => {
+  const token = req.cookies.auth;
+  if (!token)
+    return res
+      .set({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+      })
+      .sendFile(path.resolve(__dirname, "../../../build/index.html"));
   try {
-    const { user, isLogin } = AuthService.verify(req.cookies.auth);
+    const { user, isLogin } = AuthService.verify(token);
     res
       .set({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -38,8 +45,15 @@ router.get("/login", (req, res) => {
   }
 });
 router.get("/signup", (req, res) => {
+  const token = req.cookies.auth;
+  if (!token)
+    return res
+      .set({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+      })
+      .sendFile(path.resolve(__dirname, "../../../build/index.html"));
   try {
-    const { user, isLogin } = AuthService.verify(req.cookies.auth);
+    const { user, isLogin } = AuthService.verify(token);
     res
       .set({
         "Cache-Control": "no-cache, no-store, must-revalidate",
