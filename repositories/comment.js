@@ -2,9 +2,7 @@ const Comment = require("../models/comment");
 
 class CommentRepository {
   async findAll() {
-    const result = await Comment.find()
-      .select("-_id name content created")
-      .sort({ created: "desc" });
+    const result = await Comment.find().select("-_id name content created").sort({ created: "desc" }).limit(40);
     return result;
   }
 

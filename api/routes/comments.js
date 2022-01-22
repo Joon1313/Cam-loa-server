@@ -17,8 +17,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  if (!req.body.name || !req.body.content)
-    return res.status(400).send({ error: "name or content is null" });
+  if (!req.body.name || !req.body.content) return res.status(400).send({ error: "name or content is null" });
   try {
     const comment = await CommentService.create(req);
     res.json(comment);

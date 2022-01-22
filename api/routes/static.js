@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const AuthService = require("../../services/auth");
-
-router.get("/todo", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../../../build/index.html"));
-});
+const { restricteAuth, privateAuth } = require("../../middlewares/auth");
 
 router.get("/engrave", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../../../build/index.html"));
@@ -18,62 +14,23 @@ router.get("/comment", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../../../build/index.html"));
 });
 
-router.get("/set", (req, res) => {
+router.get("/todo", restricteAuth, (req, res) => {
+  res.redirect("/member-todo");
+});
+router.get("/set", restricteAuth, (req, res) => {
+  res.redirect("/");
+});
+router.get("/login", restricteAuth, (req, res) => {
+  res.redirect("/");
+});
+router.get("/signup", restricteAuth, (req, res) => {
+  res.redirect("/");
+});
+router.get("/profile", privateAuth, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../../../build/index.html"));
 });
-router.get("/login", (req, res) => {
-  const token = req.cookies.auth;
-  if (!token)
-    return res
-      .set({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-      })
-      .sendFile(path.resolve(__dirname, "../../../build/index.html"));
-  try {
-    const { user, isLogin } = AuthService.verify(token);
-    res
-      .set({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-      })
-      .redirect("/");
-  } catch (err) {
-    res
-      .set({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-      })
-      .sendFile(path.resolve(__dirname, "../../../build/index.html"));
-  }
-});
-router.get("/signup", (req, res) => {
-  const token = req.cookies.auth;
-  if (!token)
-    return res
-      .set({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-      })
-      .sendFile(path.resolve(__dirname, "../../../build/index.html"));
-  try {
-    const { user, isLogin } = AuthService.verify(token);
-    res
-      .set({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-      })
-      .redirect("/");
-  } catch (err) {
-    res
-      .set({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-      })
-      .sendFile(path.resolve(__dirname, "../../../build/index.html"));
-  }
-});
-router.get("/profile", (req, res) => {
-  try {
-    const { user, isLogin } = AuthService.verify(req.cookies.auth);
-    res.sendFile(path.resolve(__dirname, "../../../build/index.html"));
-  } catch (err) {
-    res.redirect("/");
-  }
+router.get("/member-todo", privateAuth, (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../../../build/index.html"));
 });
 
 module.exports = router;

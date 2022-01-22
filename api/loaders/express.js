@@ -15,6 +15,7 @@ const signup = require("../routes/signup");
 const auth = require("../routes/auth");
 const logout = require("../routes/logout");
 const todo = require("../routes/todo");
+const notice = require("../routes/notice");
 
 function expressInit(app) {
   app.use(cors(corsOptions));
@@ -32,6 +33,7 @@ function expressInit(app) {
   app.use("/api/auth", auth);
   app.use("/api/logout", logout);
   app.use("/api/todo", todo);
+  app.use("/api/notice", notice);
   app.use("/", static);
   app.disable("x-powered-by");
 }

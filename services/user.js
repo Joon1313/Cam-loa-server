@@ -17,11 +17,11 @@ class UserService {
     }
   }
 
-  async signup({ id, password, todo }) {
+  async signup({ id, password, todo, ...rest }) {
     const user = await UserRepository.findOne(id);
     if (user) throw new Error("이미 존재하는 아이디 입니다.");
     const hash = await argon2.hash(password);
-    const create = await UserRepository.create({ id, password: hash, todo });
+    const create = await UserRepository.create({ id, password: hash, todo, ...rest });
     const token = jwt.sign({ id: create.id }, JWT_SECRET);
     return token;
   }
