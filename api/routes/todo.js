@@ -6,7 +6,7 @@ router.patch("/", async (req, res) => {
   const { id } = req.body;
   if (!id) return res.status(400).json({ error: "로그인후 이용해주세요." });
   try {
-    await User.updateOne({ id }, { ...req.body });
+    await User.updateOne({ id }, { ...req.body, modified: new Date() });
     res.status(200).end();
   } catch (err) {
     res.status(400).json({ error: err.message });
