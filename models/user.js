@@ -35,6 +35,10 @@ const userSchema = new Schema({
     type: Number,
     requried: true,
   },
+  status: {
+    type: Boolean,
+    default: true,
+  },
   created: {
     type: Date,
     default: Date.now,
