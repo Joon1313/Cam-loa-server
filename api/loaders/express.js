@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const compression = require("compression");
 const corsOptions = require("../../options/cors");
 const path = require("path");
 const rateLimit = require("express-rate-limit");
@@ -21,6 +22,7 @@ function expressInit(app) {
   app.use(cors(corsOptions));
   app.use(rateLimit.default(limitOptions));
   app.use(express.json());
+  app.use(compression());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.resolve(__dirname, "../../../build")));
