@@ -25,5 +25,15 @@ const privateAuth = (req, res, next) => {
     return res.redirect("/login");
   }
 };
+const userApiAuth = (req, res, next) => {
+  const token = req.cookies.auth;
+  try {
+    const decode = jwt.verify(token, JWT_SECRET);
+    req.user = decode.id;
+    next();
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+};
 
-module.exports = { restricteAuth, privateAuth };
+module.exports = { restricteAuth, privateAuth, userApiAuth };

@@ -22,19 +22,19 @@ function sentryInit(app) {
   // RequestHandler creates a separate execution context using domains, so that every
   // transaction/span/breadcrumb is attached to its own Hub instance
   app.use(Sentry.Handlers.requestHandler());
-  app.get("/", function rootHandler(req, res) {
-    res.end("Hello world!");
-  });
+  // app.get("/", function rootHandler(req, res) {
+  //   res.end("Hello world!");
+  // });
   // TracingHandler creates a trace for every incoming request
   app.use(Sentry.Handlers.tracingHandler());
 
   app.use(Sentry.Handlers.errorHandler());
-  app.use(function onError(err, req, res, next) {
-    // The error id is attached to `res.sentry` to be returned
-    // and optionally displayed to the user for support.
-    res.statusCode = 500;
-    res.end(res.sentry + "\n");
-  });
+  // app.use(function onError(err, req, res, next) {
+  //   // The error id is attached to `res.sentry` to be returned
+  //   // and optionally displayed to the user for support.
+  //   res.statusCode = 500;
+  //   res.end(res.sentry + "\n");
+  // });
 }
 
 module.exports = sentryInit;
