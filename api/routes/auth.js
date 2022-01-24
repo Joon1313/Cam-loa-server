@@ -1,17 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
-dotenv.config();
-const { JWT_SECRET } = process.env;
+const AuthService = require("../../services/auth");
 
-// 임시코드 2일뒤 tmp 제거
 router.get("/", (req, res) => {
   const token = req.cookies.auth;
   try {
-    const tmp = jwt.verify(token, JWT_SECRET);
-    res.status(200).json({ user: tmp.id, isLogin: true });
-  } catch (error) {
+    const result = AuthService.verify(token);
+    res.status(200).json({ isLogin: result });
+  } catch {
     res.status(200).json({ isLogin: false });
   }
 });

@@ -12,5 +12,8 @@ async function mongooseInit() {
     useFindAndModify: false,
   });
 }
+async function mongooseClose() {
+  await mongoose.connection.close();
+}
 
-module.exports = mongooseInit;
+module.exports = { mongooseInit, mongooseClose };

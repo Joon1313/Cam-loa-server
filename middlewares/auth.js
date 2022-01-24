@@ -32,7 +32,11 @@ const userApiAuth = (req, res, next) => {
     req.user = decode.id;
     next();
   } catch (error) {
-    return res.status(400).json({ error });
+    return res.status(401).json({
+      error: {
+        message: "인증에 실패하였습니다.",
+      },
+    });
   }
 };
 

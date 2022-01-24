@@ -5,12 +5,8 @@ const { JWT_SECRET } = process.env;
 
 class AuthService {
   verify(token) {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    const data = {
-      user: decoded.id,
-      isLogin: true,
-    };
-    return data;
+    jwt.verify(token, JWT_SECRET);
+    return true;
   }
 }
 

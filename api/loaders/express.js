@@ -10,7 +10,7 @@ const comments = require("../routes/comments");
 const imgs = require("../routes/imgs");
 const backup = require("../routes/backup");
 const chars = require("../routes/chars");
-const static = require("../routes/static");
+const statics = require("../routes/static");
 const login = require("../routes/login");
 const signup = require("../routes/signup");
 const auth = require("../routes/auth");
@@ -26,6 +26,7 @@ function expressInit(app) {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.resolve(__dirname, "../../../build")));
+  app.use("/", statics);
   app.use("/api/comments", comments);
   app.use("/api/imgs", imgs);
   app.use("/api/backup", backup);
@@ -36,7 +37,6 @@ function expressInit(app) {
   app.use("/api/logout", logout);
   app.use("/api/todo", todo);
   app.use("/api/notice", notice);
-  app.use("/", static);
   app.disable("x-powered-by");
 }
 

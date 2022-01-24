@@ -1,4 +1,4 @@
-const mongooseInit = require("./mongoose");
+const { mongooseInit } = require("./mongoose");
 const expressInit = require("./express");
 const greenlockInit = require("./greenlock");
 const sentryInit = require("./sentry");
