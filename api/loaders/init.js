@@ -1,17 +1,23 @@
 const mongooseInit = require("./mongoose");
 const expressInit = require("./express");
 const greenlockInit = require("./greenlock");
+const sentryInit = require("./sentry");
 
 async function loaderInit(app) {
   try {
-    await expressInit(app);
+    sentryInit(app);
+    console.log("Sentry Init");
+
+    expressInit(app);
     console.log("Express App Init");
+
     await mongooseInit();
     console.log("MongoDB Connected");
-    await greenlockInit(app);
+
+    greenlockInit(app);
     console.log("GreenLock Start");
   } catch (err) {
-    console.log(err);
+    console.err(err);
   }
 }
 
