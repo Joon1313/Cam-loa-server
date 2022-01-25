@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-dotenv.config();
-const { DB_CONNECTION } = process.env;
 
 async function mongooseInit() {
-  await mongoose.connect(DB_CONNECTION, {
+  await mongoose.connect(process.env.DB_CONNECTION, {
     dbName: "cam-loa",
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
   });
+
+  console.log("MongoDB Connected");
 }
 async function mongooseClose() {
   await mongoose.connection.close();

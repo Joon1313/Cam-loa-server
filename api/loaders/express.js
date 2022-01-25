@@ -38,6 +38,8 @@ function expressInit(app) {
   app.use("/api/todo", todo);
   app.use("/api/notice", notice);
   app.disable("x-powered-by");
+
+  console.log("Express App Init");
 }
 
 module.exports = expressInit;

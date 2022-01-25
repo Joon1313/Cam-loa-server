@@ -1,16 +1,13 @@
 const UserRepository = require("../repositories/user");
 const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
-const dotenv = require("dotenv");
-dotenv.config();
-const { JWT_SECRET } = process.env;
 
 class UserService {
   async login({ id, password }) {
     const user = await UserRepository.findOne(id);
     if (!user) throw new Error("잘못된 아이디입니다.");
     if (await argon2.verify(user.password, password)) {
-      const token = jwt.sign({ id: user.id }, JWT_SECRET);
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
       return token;
     } else {
       throw new Error("잘못된 비밀번호입니다.");

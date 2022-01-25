@@ -1,12 +1,9 @@
 const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
-const dotenv = require("dotenv");
-dotenv.config();
-const { SENTRY_DSN } = process.env;
 
 function sentryInit(app) {
   Sentry.init({
-    dsn: SENTRY_DSN,
+    dsn: process.env.SENTRY_DSN,
     integrations: [
       // enable HTTP calls tracing
       new Sentry.Integrations.Http({ tracing: true }),
@@ -35,6 +32,8 @@ function sentryInit(app) {
   //   res.statusCode = 500;
   //   res.end(res.sentry + "\n");
   // });
+
+  console.log("Sentry Init");
 }
 
 module.exports = sentryInit;

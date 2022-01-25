@@ -28,22 +28,4 @@ router.patch("/", userApiAuth, async (req, res) => {
   }
 });
 
-// 임시 코드 3일뒤에 삭제 예정 //
-router.get("/:id", userApiAuth, async (req, res) => {
-  try {
-    const user = await User.findOne({ id: req.user }).select("todo date memo color ctnSize checkbox");
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(400).json({ error });
-  }
-});
-router.get("/:id/config", userApiAuth, async (req, res) => {
-  try {
-    const user = await User.findOne({ id: req.user }).select("date color ctnSize checkbox");
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(400).json({ error });
-  }
-});
-
 module.exports = router;
