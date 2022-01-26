@@ -5,7 +5,3 @@ node_modules
 app.local.js
 
 api/loaders/init.local.js
-
-package.json
-
-package-lock.json
