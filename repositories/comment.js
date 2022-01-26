@@ -1,8 +1,12 @@
 const Comment = require("../models/comment");
 
 class CommentRepository {
-  async findAll() {
-    const result = await Comment.find().select("-_id name content created").sort({ created: "desc" }).limit(40);
+  async find(skip) {
+    const result = await Comment.find()
+      .select("-_id name content created")
+      .sort({ created: "desc" })
+      .skip(skip)
+      .limit(40);
     return result;
   }
 

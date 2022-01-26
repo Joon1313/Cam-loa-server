@@ -1,8 +1,9 @@
 const CommentRepository = require("../repositories/comment");
 
 class CommentService {
-  async findAll() {
-    const result = await CommentRepository.findAll();
+  async find(page = 1) {
+    const skip = page > 1 ? (page - 1) * 40 : 0;
+    const result = await CommentRepository.find(skip);
     return result;
   }
   async create(req) {
