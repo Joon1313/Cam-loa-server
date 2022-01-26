@@ -19,7 +19,7 @@ class UserService {
     if (user) throw new Error("이미 존재하는 아이디 입니다.");
     const hash = await argon2.hash(password);
     const create = await UserRepository.create({ id, password: hash, todo, ...rest });
-    const token = jwt.sign({ id: create.id }, JWT_SECRET);
+    const token = jwt.sign({ id: create.id }, process.env.JWT_SECRET);
     return token;
   }
 }
