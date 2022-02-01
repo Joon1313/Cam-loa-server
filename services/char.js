@@ -3,13 +3,11 @@ const axios = require("axios");
 
 class CharService {
   async search(name) {
-    const res = await axios.get(
-      `https://lostark.game.onstove.com/Profile/Character/${encodeURI(name)}`
-    );
+    const res = await axios.get(`https://lostark.game.onstove.com/Profile/Character/${encodeURI(name)}`);
     const $ = cheerio.load(res.data);
     const result = {
-      level: getLevel($),
-      job: getJob($),
+      level: getLevel($) || "",
+      job: getJob($) || "",
     };
     return result;
   }
@@ -25,9 +23,7 @@ function getLevel($) {
 }
 
 function getJob($) {
-  const job = $(
-    "#lostark-wrapper > div > main > div > div.profile-character-info > img"
-  ).attr("alt");
+  const job = $("#lostark-wrapper > div > main > div > div.profile-character-info > img").attr("alt");
   return job;
 }
 
