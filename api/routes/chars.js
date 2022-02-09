@@ -3,8 +3,11 @@ const router = express.Router();
 const CharService = require("../../services/char");
 
 router.get("/:name", async (req, res, next) => {
-  if (!req.params.name)
-    return res.status(400).json({ error: "not found name" });
+  const 현재시간 = new Date();
+  if (현재시간.getDay() === 3 && 5 < 현재시간.getHours() < 11)
+    return res.status(400).json({ error: "공식 홈페이지 점검시간 입니다." });
+  if (!req.params.name) return res.status(400).json({ error: "캐릭터명이 존재하지 않습니다" });
+
   try {
     const data = await CharService.search(req.params.name);
     res.json(data);
